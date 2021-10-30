@@ -1,7 +1,9 @@
 const sendBtn = document.getElementById('sendBtn'),
     email = document.getElementById('email'),
     subject = document.getElementById('subject'),
-    message = document.getElementById('message');
+    message = document.getElementById('message'),
+    resetBtn = document.getElementById('resetBtn'),
+    sendEmailForm = document.getElementById('email-form');
 
 
 
@@ -16,6 +18,9 @@ function eventListeners() {
     email.addEventListener('blur', validateField);
     subject.addEventListener('blur', validateField);
     message.addEventListener('blur', validateField);
+
+
+    resetBtn.addEventListener('click', resetForm);
 }
 
 
@@ -34,6 +39,14 @@ function validateField() {
 
     if(this.type === 'email') {
         validateEmail(this);
+    }
+
+    errors = document.querySelectorAll('.error');
+
+    if(email.value !== '' && subjact.value !== '' && message.value !== '') {
+        if(errors.length === 0) {
+            sendBtn.disabled = false;
+        }
     }
 }
 
@@ -58,4 +71,8 @@ function validateEmail(field) {
         field.style.borderButtonColor = 'red';
         field.classList.add('error');
     }
+}
+
+function resetForm() {
+    sendEmailForm.reset();
 }
